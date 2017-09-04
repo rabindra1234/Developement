@@ -1,0 +1,48 @@
+Insertions for all the Map implementations except for IdentityHashMap get significantly slower as the size of the Map gets large. In general, however, lookup is much cheaper than insertion, which is good because you will typically be looking items up much more often than you insert them.
+
+Hash table performance is roughly the same as HashMap. Since HashMap is intended to replace Hash table, and thus uses the same underlying storage and lookup mechanism (which you will learn about later) this is not too surprising.
+
+A TreeMap is generally slower than a HashMap. As with TreeSet, a TreeMap is a way to create an ordered list. The behavior of a tree is such that its always in order and does not have to be specially sorted. Once you fill a TreeMap, you can call keySet( ) to get a Set view of the keys, then toArray( ) to produce an array of those keys. You can then use the static method Arrays.binarySearch( ) to rapidly find objects in your sorted array. Of course, this only makes sense if the behavior of a HashMap is unacceptable, since HashMap is designed to rapidly find keys. Also, you can easily create a HashMap from a TreeMap with a single object creation or call to putAll(). In the end, when youre using a Map, your first choice should be HashMap, and only if you need a constantly sorted Map will you need TreeMap.
+
+LinkedHashMap tends to be slower than HashMap for insertions because it maintains the linked list (to preserve insertion order) in addition to the hashed data structure. Because of this list, iteration is faster.
+
+IdentityHashMap has different performance because it uses == rather than equals( ) for comparisons.
+
+--------------------------------------------------------------------------------------------------------
+
+---------- TreeMap ----------
+ size     put     get iterate
+   10     191      62      33
+  100     252      99      21
+ 1000     216     115      15
+10000     260     159      14
+---------- HashMap ----------
+ size     put     get iterate
+   10      63      18      18
+  100      40      17      17
+ 1000      40      20      15
+10000      48      20      15
+------- LinkedHashMap -------
+ size     put     get iterate
+   10      58      14      18
+  100      46      15      12
+ 1000      50      19      11
+10000      58      19      11
+------ IdentityHashMap ------
+ size     put     get iterate
+   10      87      80      36
+  100      89      89      25
+ 1000     120     112      25
+10000     135     124      26
+-------- WeakHashMap --------
+ size     put     get iterate
+   10      76      20      30
+  100      38      18      20
+ 1000      49      17      28
+10000      94      18      93
+--------- Hashtable ---------
+ size     put     get iterate
+   10      70      33      27
+  100      44      20      21
+ 1000      40      25      20
+10000      56      22      19

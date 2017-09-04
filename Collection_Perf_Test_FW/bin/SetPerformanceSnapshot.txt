@@ -1,0 +1,28 @@
+The performance of HashSet is generally superior to TreeSet, but especially when adding elements and looking them up, which are the two most important operations. 
+
+TreeSet exists because it maintains its elements in sorted order, so you use it only when you need a sorted Set. Because of the internal structure necessary to support sorting and 
+because iteration is something youre more likely to do, iteration is usually faster with a TreeSet than a HashSet.
+
+Note that LinkedHashSet is more expensive for insertions than HashSet; this is because of the extra cost of maintaining the linked list along with the hashed container.
+
+
+-------------------------------------------------------------------------------------
+
+------------- TreeSet -------------
+ size       add  contains   iterate
+   10       310       103        52
+  100       269       170        34
+ 1000       326       330        39
+10000       618       357        25
+------------- HashSet -------------
+ size       add  contains   iterate
+   10       136        46        42
+  100        63        30        31
+ 1000        68        37        28
+10000        74        36        21
+---------- LinkedHashSet ----------
+ size       add  contains   iterate
+   10        87        27        30
+  100        67        24        16
+ 1000        67        31        16
+10000        73        31        16
